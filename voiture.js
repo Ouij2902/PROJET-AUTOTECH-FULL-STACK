@@ -5,9 +5,9 @@ let position = voiture.getBoundingClientRect();
 let x = voiture.offsetLeft
 let y = voiture.offsetTop
 let rotation = 0
-let vitesse = 5
-let degre = 5
-
+let vitesse = 10
+let degre = 10
+let avancer = new Audio("avancert.mp3")
 
 function moveTop(x,y,vitesse,rotation) {
     radiant = (rotation*Math.PI)/180
@@ -107,21 +107,34 @@ function move() {
                 coord = moveTop(x,y,vitesse,rotation);
                 x = coord[0];
                 y = coord[1];
+                avancer.play();
             }
             if (i=='down') {
                 h1.innerHTML = `x:${x} et y:${y} et rotation:${rotation}`;
                 coord = moveBottom(x,y,vitesse,rotation);
                 x = coord[0];
                 y = coord[1];
+                //avancer.play();
             }
+            //else {avancer.pause()}
             if (i=='left') {
                 h1.innerHTML = `x:${x} et y:${y} et rotation:${rotation}`;
                 rotation = rotateLeft(rotation,degre);
+                //avancer.play();
             }
+            //else {avancer.pause()}
             if (i=='right') {
                 h1.innerHTML = `x:${x} et y:${y} et rotation:${rotation}`;
                 rotation = rotateRight(rotation,degre);
+                //avancer.play();
             }
+            //else {avancer.pause()}
+        }
+        else {
+            if (i=='up') {
+                avancer.pause();
+            }
+            
         }
     }
 }
