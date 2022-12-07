@@ -1,0 +1,123 @@
+* {
+    margin:0;
+    padding:0;
+}
+
+body {
+    background-image: url(/media/imgs/background.svg);
+    background-size: cover;
+}
+a:link,a:visited,a:hover,a:active { text-decoration: none;}
+a {
+    color:white
+}
+div#menu {
+    width: 100vw;
+    height:197px;
+    background-color: rgba(0, 150, 136, 0.7);
+    display: flex;
+    align-items: center;
+}
+div#menu img {
+    width: 199px;
+    margin-top:15px;
+    margin-left: 46px;
+}
+div#element_container {
+    position: absolute;
+    right:133px;
+    width:553px;
+    height:55px;
+    display: flex;
+    align-items: center;
+    gap:56px;
+    padding-left: 56px;
+    font-weight: 500;
+    font-size: 24px;
+}
+div#element_container div.active {
+    background: rgba(255, 255, 255, 0.3);
+    padding-left:26px ;
+    padding-right:26px ;
+    padding-top:13px ;
+    padding-bottom:13px ;
+    border-radius: 5px;
+}
+div#element_container div.active a {
+    margin-left:26 ;
+    margin-right:26 ;
+    margin-top:13 ;
+    margin-bottom:13 ;
+}
+div#formulaire {
+    width: 100vw;
+    height: calc(100vh - 197px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap:35px;
+}
+
+div#formulaire div {
+    width:886px;
+    height: 115px;
+    border-radius: 90px;
+    display: flex;
+    align-items: center;
+}
+div#username {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+div#username img {
+    margin-left: 68px;
+    margin-right: 35px;
+}
+div#password {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+div#password img {
+    margin-left: 68px;
+    margin-right: 35px;
+}
+div#start {
+    background-color: #BE4222;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    font-family: 'Inter';
+    font-weight: 700;
+    user-select: none;
+}
+
+.custom_input {
+    padding: 0;
+    background: none;
+    border: none;
+    border-radius: 0;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 600px;
+    height: 29px;
+    font-size: 24px;
+    color:white;
+}
+::placeholder {
+    color: white;
+}
+
+
+#footer {
+    position: absolute;
+    width:fit-content;
+    display: flex;
+    align-items: center;
+    bottom:0px;
+    right:0px;
+    font-weight: 500;
+    font-size: 24px;
+    color:white;
+    gap:15px;
+}
