@@ -1,0 +1,49 @@
+
+div#formulaire {
+    width: 100vw;
+    height: calc(100vh - 197px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap:35px;
+}
+
+div#formulaire div,div#formulaire button {
+    width:45vw;
+    min-width: 300px;
+    height: 10vh;
+    border-radius: 90px;
+    display: flex;
+    align-items: center;
+}
+div#formulaire div input {
+    width:30vw;
+    min-width: 220px;
+}
+div#username {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+div#username img {
+    margin-left: 3.5vw;
+    margin-right: 1.8vw;
+}
+div#password {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+div#password img {
+    margin-left: 3.5vw;
+    margin-right: 1.8vw;
+}
+button#start {
+    background-color: #BE4222;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    font-family: 'Inter';
+    font-weight: 700;
+}
+
+::placeholder {
+    color: white;
+}
