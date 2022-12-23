@@ -1,0 +1,31 @@
+{
+  "name": "projet_4_full_stack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ouij2902/PROJET-AUTOTECH-FULL-STACK.git"
+  },
+  "author": "AUTOTECH",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ouij2902/PROJET-AUTOTECH-FULL-STACK/issues"
+  },
+  "homepage": "https://github.com/Ouij2902/PROJET-AUTOTECH-FULL-STACK#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cookie-parser": "^1.4.6",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "mongoose": "^6.8.1",
+    "mongoose-unique-validator": "^3.1.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.20"
+  }
+}
