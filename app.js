@@ -60,7 +60,7 @@ Connexion à Mongodb avec les options définies auparavant
 - 27017 : est le port où MongoDB écoute (c'est le port par défaut)
 - maBaseDeDonnee : est le nom de la base de données, il peut être ce que vous voulez
  */
-mongoose.connect(`mongodb://${mongoDBHost}:27017/maBaseDeDonnee`, options, function (err) {
+mongoose.connect(`mongodb://${mongoDBHost}:27017/user_bdd`, options, function (err) {
     if (err) {
         throw err;
     }

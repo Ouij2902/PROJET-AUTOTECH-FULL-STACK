@@ -4,19 +4,19 @@ const express = require("express");
 const viewsRouter = express.Router();
 
 viewsRouter.get('/', function (req, res) {
-    res.render('index.ejs');
+    res.render('aboutus.ejs');
 });
 
 viewsRouter.get('/home', function (req, res) {
-    res.render('index.ejs');
+    res.render('aboutus.ejs');
 });
 
 viewsRouter.get('/register', function (req, res) {
     res.render('register.ejs');
 });
 
-viewsRouter.get('/aboutus', function (req, res) {
-    res.render('aboutus.ejs');
+viewsRouter.get('/login', function (req, res) {
+    res.render('index.ejs');
 });
 
 viewsRouter.get('/contact', function (req, res) {

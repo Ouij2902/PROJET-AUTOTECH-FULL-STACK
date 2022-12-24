@@ -1,6 +1,5 @@
 const {getKeysNotProvided, isObjectIdStringValid} = require("../utils.js");
-const {User} = require("../models/user_model.js");
-const bcrypt = require("bcrypt");
+const {User} = require("../models/UserModel.js");
 
 /**
  * Créer un utilisateur
@@ -20,8 +19,6 @@ async function createUser(user) {
     }
 
     try {
-        user.password = await bcrypt.hash(user.password, 10);
-        user.password_confirmation = await bcrypt.hash(user.password_confirmation, 10);
         const userToCreate = new User(user);
         return await userToCreate.save();
     }
@@ -36,7 +33,6 @@ async function deleteUser(userId) {
     if (userId === undefined || !isObjectIdStringValid(userId)) {
         return "L'id de l'utilisateur n'existe pas ou n'est pas un id MongoDB"
     }
-
     // On essaye de trouver l'utilisateur
     try {
 

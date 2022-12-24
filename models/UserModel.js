@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const bcrypt = require("bcrypt");
-const SALT_WORK_FACTOR = 10;
 const uniqueValidator = require('mongoose-unique-validator');
+const salt=10;
 
 /**
  * Ce schema sera utilisé pour stocker les utilisateurs
@@ -43,46 +43,47 @@ const UserSchema = new Schema({
 
     /**
      * Ce champ sera pour savoir quand un utilisateur a été ajouté la base de données
-     * Le fait de mettre 'default: Date.now' permettra de créer ce champ sans devoir le renseigner et sera la date au moment de l'ajout du document
      */
     createdAt: {
         type: Schema.Types.Date,
         default: Date.now
+    },
+
+    token:{
+        type: Schema.Types.String
     }
 });
 
 UserSchema.plugin(uniqueValidator, {message: 'is already taken'});
-/*
-UserSchema.pre(save, function(next) {
-    var user = this;
 
-// only hash the password if it has been modified (or is new)
-if (!user.isModified('password')) return next();
+// crypte le password directement après la création
+UserSchema.pre('save',function(next){
+    var user=this;
+    
+    if(user.isModified('password')){
+        bcrypt.genSalt(salt,function(err,salt){
+            if(err)return next(err);
 
-// generate a salt
-bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
-    if (err) return next(err);
+            bcrypt.hash(user.password,salt,function(err,hash){
+                if(err) return next(err);
+                user.password=hash;
+                user.password_confirmation=hash;
+                next();
+            })
 
-    // hash the password using our new salt
-    bcrypt.hash(user.password, salt, function(err, hash) {
-        if (err) return next(err);
-
-        // override the cleartext password with the hashed one
-        user.password = hash;
+        })
+    }
+    else{
         next();
-    });
+    }
 });
 
-
-});
-
-UserSchema.methods.comparePassword = function(candidatePassword, cb) {
-    bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
-        if (err) return cb(err);
-        cb(null, isMatch);
+UserSchema.methods.comparepassword = function(password,cb){
+    bcrypt.compare(password, this.password, function(err,isMatch){
+        if(err) return cb(next);
+        cb(null,isMatch);
     });
-};
-*/
+}
 
 // On exporte le model
 module.exports = {
