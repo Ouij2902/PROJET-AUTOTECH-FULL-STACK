@@ -7,6 +7,20 @@
         <title>Autotech</title>
         <link rel="stylesheet" href="/public/assets/menu.css">
         <link rel="stylesheet" href="/public/assets/footer.css">
+        <style>
+            @import url('https://fonts.cdnfonts.com/css/vintage-party');
+            @import url('https://fonts.cdnfonts.com/css/carnivalee-freakshow');
+            div#ouho h1 {
+                text-align: center;
+                font-size: 50px;
+                font-family: 'Vintage Party', sans-serif;
+            }
+            div#ouho p{
+                text-align: center;
+                font-size: 35px;
+                font-family: 'Comic Sans MS', 'Comic Sans', 'cursive';
+            }
+        </style>
     </head>
 
     <!-- On importe Axios -->
@@ -16,11 +30,11 @@
         <div id="menu">
             <img src="/public/images/logo.svg">
             <div id="element_container">
-                <div>
-                    <a href='/login'>Login</a>
-                </div>
                 <div class="active">
                     <a href='/home'>About Us</a>
+                </div>
+                <div>
+                    <a href='/login'>Login</a>
                 </div>
                 <div>
                     <a href='/register'>Register</a>
@@ -30,8 +44,9 @@
                 </div>
             </div>
         </div>
-        <div id="content">
-            Bienvenue sur le site Autotech, inscrivez-vous ou connectez-vous pour réparer votre voiture. 
+        <div id="ouho">
+            <h1>Bienvenue sur le site du club de réparation automobile Autotech</h1>
+            <p>Inscrivez-vous ou connectez-vous pour réparer votre voiture &#128736; &#128521; </p>
         </div>
     </body>
 </html>
