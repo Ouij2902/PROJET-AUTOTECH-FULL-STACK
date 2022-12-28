@@ -1,13 +1,16 @@
-# PROJET-AUTOTECH-FULL-STACK
+# PROJET-4-FULL-STACK__AUTOTECH
 
 ## Bonsoir les enfoirés
 
-étape 1 --> créer un utilisateur (-:
+On a maintenant un petit site où l'on peut créer un compte, se connecter et se déconnecter
 
-D'abord lance ça enfoiré
+## Mode d'emploi
+
+On ouvre un premier *cmd* à la racine du projet et on lance ça :  
 <code>npm run dev</code>
 
-Après va dans ça
-<code>http://localhost:3000/</code>
+On ouvre un deuxième *cmd* au niveau **_/app_project_** et on lance ça :  
+<code>npm run dev</code>
 
-Puis onglet "Register"
+Finalement on va sur le lien suivant et on s'amuse
+<code>http://localhost:8080</code>
