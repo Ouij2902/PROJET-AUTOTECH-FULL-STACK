@@ -1,0 +1,24 @@
+{
+  "name": "tp2-1-website",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 8080",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@next/font": "13.1.1",
+    "axios": "^1.2.1",
+    "bulma": "^0.9.4",
+    "crypto-js": "^4.1.1",
+    "moment": "^2.29.4",
+    "next": "13.1.1",
+    "react": "18.2.0",
+    "react-bulma-components": "^4.1.0",
+    "react-dom": "18.2.0",
+    "react-icons": "^4.7.1",
+    "react-spinners": "^0.13.7"
+  }
+}
