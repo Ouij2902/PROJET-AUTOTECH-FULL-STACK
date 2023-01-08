@@ -1,7 +1,6 @@
 import {PageWrapper} from "../../components/pageWrapper";
 import {Columns, Heading} from "react-bulma-components";
 import {UserCreationForm} from "../../components/users/userCreationForm";
-import {ProtectedRoute} from "../../components/protectedRoute";
 
 /**
  * La page pour créer un nouvel utilisateur, c'est à dire le '/newuser'

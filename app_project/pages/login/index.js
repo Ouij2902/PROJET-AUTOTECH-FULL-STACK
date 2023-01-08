@@ -17,7 +17,7 @@ const LoginPage = ({showErrorMessage, showInfoMessage, showSuccessMessage}) => {
                 <Columns>
                     <Columns.Column className="right has-text-centered">
                         <Heading className="is-3">Sign in</Heading>
-                        <Heading className="is-4">Welcome back baby &#128536;</Heading>
+                        <Heading className="is-4">Welcome back &#x1F642;</Heading>
                         <LoginForm showErrorMessage={showErrorMessage} showInfoMessage={showInfoMessage}/>
                     </Columns.Column>
                 </Columns>

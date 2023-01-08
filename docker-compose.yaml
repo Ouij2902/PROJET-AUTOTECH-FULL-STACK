@@ -1,0 +1,100 @@
+version: "3.8"
+
+# Ici on définie les différents services
+services:
+
+  # le service pour la base de données MongoDB que l'on va appeler 'mongo-project_autotech'
+  mongo-project_autotech:
+
+    # Il utilisera l'image 'mongo' à sa dernière version
+    image: mongo:latest
+
+    # Le container aura comme nom 'mongo-project_autotech'
+    container_name: mongo-project_autotech
+
+    # Le hostname du container, c'est-à-dire son adresse visible aux autres containers qui seront dans le/les même(s) réseau(x), il sera utilisé pour s'y connecter
+    hostname: mongo-hostname-project_autotech
+
+    # Il fera partie d'un seul réseau interne nommé 'network-project_autotech'
+    networks:
+      - network-project_autotech
+
+  # le service pour la base de données Redis que l'on va appeler 'redis-project_autotech'
+  redis-project_autotech:
+
+    # Il utilisera l'image 'redis' à sa dernière version
+    image: redis:latest
+
+    # Le container aura comme nom 'redis-project_autotech'
+    container_name: redis-project_autotech
+
+    # Le hostname du container, c'est-à-dire son adresse visible aux autres containers qui seront dans le/les même(s) réseau(x), il sera utilisé pour s'y connecter
+    hostname: redis-hostname-project_autotech
+
+    # Il fera partie d'un seul réseau interne nommé 'network-project_autotech'
+    networks:
+      - network-project_autotech
+
+  # le service pour l'API que l'on va appeler 'api-project_autotech'
+  api-project_autotech:
+
+    # L'image que nous utiliserons est l'image que l'on a créée et qui s'appelle 'info734/project_autotech/backend'
+    # On lui a donné ce nom grâce à la commande: docker build -t info734/project_autotech/backend .
+    image: info734/project_autotech/backend
+
+    # On lui donne comme nom 'api-tp2-1'
+    container_name: api-project_autotech
+
+    # On veut "mapper" le port 3000 de notre ordinateur (le HOST) vers le port 80 de l'API (CONTAINER)
+    ports:
+      - "3000:80"
+
+    # Ce service doit attendre que mongo ET redis aient démarré pour démarrer à son tour
+    depends_on:
+      - mongo-project_autotech
+      - redis-project_autotech
+
+    # Il fera partie d'un seul réseau interne nommé 'network-project_autotech'
+    networks:
+      - network-project_autotech
+
+    # On veut ajouter deux variables d'environnement à notre container, ce qu'il lui permettra de pouvoir se connecter à MongoDB et Redis en leur donnant leur hostname
+    # Comme la base de données MongoDB s'appelle mongo et la base Redis redis on leur donne ces noms
+    # On veut aussi que le port de notre API soit rendu sur le port 80
+    environment:
+      MONGO_HOST: "mongo-hostname-project_autotech"
+      REDIS_HOST: "redis-hostname-project_autotech"
+      PORT: "80"
+
+  # le service pour le site web que l'on va appeler 'website-project_autotech'
+  website-project_autotech:
+
+    # L'image que nous utiliserons est l'image que l'on a créée et qui s'appelle 'info734/project_4/website'
+    # On lui a donné ce nom grâce à la commande: docker build --build-arg BACKEND_URL=api-tp2-1:80 -t info734/project_4/website .
+    image: info734/project_4/website
+
+    # On lui donne comme nom 'website-tp2-1'
+    container_name: website-project_autotech
+
+    # On veut "mapper" le port 8080 de notre ordinateur (le HOST) vers le port 8080 du website (CONTAINER)
+    ports:
+      - "8080:8080"
+
+    # Ce service doit attendre que mongo, redis ET l'API aient démarré pour démarrer à son tour
+    depends_on:
+      - mongo-project_autotech
+      - redis-project_autotech
+      - api-project_autotech
+
+    # Il fera partie d'un seul réseau interne nommé 'network-project_autotech'
+    networks:
+      - network-project_autotech
+
+# Après avoir créé des services, on va créer un réseau interne
+networks:
+
+  # On crée le réseau interne nommé "network-project_autotech"
+  network-project_autotech:
+
+    # Pour les réseaux internes mettre tout le temps cette instruction, c'est le plus simple et vous n'aurez pas besoin de plus
+    driver: bridge

@@ -1,4 +1,5 @@
-import {Columns, Heading} from "react-bulma-components";
+import {Button, Columns, Heading} from "react-bulma-components";
+import Link from "next/link";
 import {PageWrapper} from "../../components/pageWrapper";
 import {useEffect, useState} from "react";
 import {CustomPuffLoader} from "../../components/customPuffLoader";
@@ -89,7 +90,7 @@ const AccountPage = ({showErrorMessage, showSuccessMessage}) => {
             <Columns.Column className="column is-10 is-offset-1 middle_page">
                 <Columns>
                     <Columns.Column className="left">
-                        <Heading className="is-4">Bonjour {userData.user.username}</Heading>
+                        <Heading className="is-4">Bonjour {userData.username}</Heading>
                         <hr/>
                         <Heading className="subtitle">Voici les détails de votre compte</Heading>
                         <p>Date de création:
@@ -97,13 +98,20 @@ const AccountPage = ({showErrorMessage, showSuccessMessage}) => {
                         </p>
                         <p>Email:
                             <em>    {userData.email}</em>
-                        </p>
-                        <p color="red">{userData.isSuperUser ? "Vous êtes un super utilisateur" : "Vous n'êtes pas un super utilisateur"}</p>
-
+                        </p>                        
+                        <hr/>
+                        {userData.isSuperUser === false ?
+                        <>
+                            <Heading className="subtitle">Si vous avez un problème avec votre voiture, créer un ticket pour nous demander de l'aide</Heading>
+                            <Link href="/newticket" passHref>
+                                <Button className="is-block is-primary is-blue is-medium">Créer un ticket</Button>
+                            </Link>
+                        </>
+                        : null}
                         <hr/>
 
-                        <Heading className="subtitle">Vous pouvez changer votre nom d'utilisateur ou supprimer votre compte</Heading>
-                        <User user={userData.user} setUser={setUser} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage}/>
+                        <Heading className="subtitle">Vous pouvez changer vos informations de connexion ou supprimer votre compte</Heading>
+                        <User user={userData} setUser={setUser} showErrorMessage={showErrorMessage} showSuccessMessage={showSuccessMessage}/>
                     </Columns.Column>
                 </Columns>
             </Columns.Column>

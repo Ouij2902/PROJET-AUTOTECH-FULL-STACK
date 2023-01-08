@@ -130,10 +130,18 @@ export const User = ({user, setUser, showSuccessMessage, showErrorMessage}) => {
         <div>
             <Form.Field>
                 <Form.Control>
-                    <Form.Label>Username</Form.Label>
+                    <Form.Label className="subtitle">Username</Form.Label>
                     <Form.Input name="username" className="is-medium"
                                 placeholder="username" onChange={updateField}
-                                value={userToUpdate.nom} disabled={isLoading}/>
+                                value={userToUpdate.username} disabled={isLoading}/>
+                </Form.Control>
+            </Form.Field>
+            <Form.Field>
+                <Form.Control>
+                    <Form.Label className="subtitle">Email</Form.Label>
+                    <Form.Input name="email" className="is-medium"
+                                placeholder="email" onChange={updateField}
+                                value={userToUpdate.email} disabled={isLoading}/>
                 </Form.Control>
             </Form.Field>
 
@@ -141,8 +149,8 @@ export const User = ({user, setUser, showSuccessMessage, showErrorMessage}) => {
                 <Form.Control>
 
                     <Button.Group align="right">
-                        <Button onClick={handleUserDelete} disabled={isLoading} loading={isLoading} color="danger">Supprimer l'utilisateur</Button>
                         <Button onClick={handleUserUpdate} disabled={isLoading} loading={isLoading} color="success">Mettre à jour l'utilisateur</Button>
+                        <Button onClick={handleUserDelete} disabled={isLoading} loading={isLoading} color="danger">Supprimer l'utilisateur</Button>
                     </Button.Group>
                 </Form.Control>
             </Form.Field>

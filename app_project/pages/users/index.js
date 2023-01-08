@@ -30,7 +30,7 @@ const UsersPage = ({showErrorMessage}) => {
 
                 // On essaye de faire la requête pour récupérer les utilisateurs
                 try {
-                    const response = await axios.get(`/api/users`);
+                    const response = await axios.get(`/api/accounts`);
 
                     // On met à jour les utilisateurs
                     setUsers(response.data);
@@ -49,11 +49,11 @@ const UsersPage = ({showErrorMessage}) => {
 
     return (
         <PageWrapper>
-            <Columns.Column className="is-8 is-offset-2 users_list">
+            <Columns.Column className="is-8 is-offset-2 middle_page">
                 <Columns>
                     <Columns.Column className="right">
                         <Heading className="is-3">Liste des utilisateurs</Heading>
-                        <Heading className="subtitle">Si vous êtes un super user, cliquer sur un de ces utilisateurs pour le modifier ou le supprimer</Heading>
+                        <Heading className="subtitle">Cliquez sur un de ces utilisateurs pour le modifier ou le supprimer</Heading>
                         <hr/>
                         <UsersList users={users}/>
                     </Columns.Column>
@@ -64,4 +64,4 @@ const UsersPage = ({showErrorMessage}) => {
 }
 
 // On exporte la page
-export default ProtectedRoute(UsersPage);
+export default ProtectedRoute(UsersPage, true);

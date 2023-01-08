@@ -1,15 +1,18 @@
-import {Button, Form} from "react-bulma-components";
+import {Button, Form, Icon} from "react-bulma-components";
 import {useState} from "react";
 import sha256 from "crypto-js/sha256";
 import {useRouter} from "next/router";
 import axios from "axios";
+import Image from 'next/image';
+import user_icon from "../../public/user_icon.svg";
+import password_icon from "../../public/password_icon.svg";
 
 /**
  * Le composant pour que l'utilisateur se connecte
  * @param showErrorMessage Fonction pour montrer un message d'erreur
- * @param showInfoMessage Fonction pour montrer un message d'information
+ * @param showSuccessMessage  Fonction pour montrer un message de succès
  */
-export const LoginForm = ({showErrorMessage, showInfoMessage}) => {
+export const LoginForm = ({showErrorMessage, showInfoMessage }) => {
 
     /**
      * On récupère le router de NextJS
@@ -89,7 +92,9 @@ export const LoginForm = ({showErrorMessage, showInfoMessage}) => {
 
     return (
         <form id="formulaire">
+            
             <Form.Field>
+                <Image src={user_icon} quality={100}/>
                 <Form.Control>
                     <Form.Input name="email" className="is-medium" type="email"
                                 placeholder="Email" onKeyDown={handleKeyDown}
@@ -98,9 +103,10 @@ export const LoginForm = ({showErrorMessage, showInfoMessage}) => {
             </Form.Field>
 
             <Form.Field>
+                <Image src={password_icon} quality={100}/>
                 <Form.Control>
                     <Form.Input name="password" className="is-medium" type="password"
-                                placeholder="Mot de passe" onKeyDown={handleKeyDown} onChange={updateField}
+                                placeholder="Password" onKeyDown={handleKeyDown} onChange={updateField}
                                 value={connectionData.password} autoComplete="current-password"/>
                 </Form.Control>
             </Form.Field>

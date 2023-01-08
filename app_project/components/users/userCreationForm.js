@@ -17,8 +17,7 @@ export const UserCreationForm = ({showErrorMessage, showSuccessMessage}) => {
         username: "",
         email: "",
         password: "",
-        passwordConfirmation: "",
-        isSuperUser: false
+        passwordConfirmation: ""
     })
 
     /**
@@ -28,7 +27,7 @@ export const UserCreationForm = ({showErrorMessage, showSuccessMessage}) => {
     const updateField = (e) => {
         setNewUserAccountData({
             ...newUserAccountData,
-            [e.target.name]: e.target.type === "checkbox" ? e.target.checked : e.target.value
+            [e.target.name]: e.target.value
         });
     }
 
@@ -56,12 +55,9 @@ export const UserCreationForm = ({showErrorMessage, showSuccessMessage}) => {
         // On essaye de créer un compte utilisateur
         try {
             const response = await axios.post('/api/signup', {
+                username: newUserAccountData.username,
                 email: newUserAccountData.email,
-                password: sha256(newUserAccountData.password).toString(),
-                isSuperUser: newUserAccountData.isSuperUser,
-                user: {
-                    username: newUserAccountData.username
-                }
+                password: sha256(newUserAccountData.password).toString()
             });
 
             // Comme on est arrivé là, c'est que la création a fonctionné et on peut donc le dire à l'utilisateur
@@ -89,16 +85,18 @@ export const UserCreationForm = ({showErrorMessage, showSuccessMessage}) => {
     return (
         <form>
 
-            <Heading className="is-4">Oh yes a new friend &#128526;</Heading>
+            <Heading className="is-4">Oh yes un nouvel ami &#128526;</Heading>
             <Form.Field>
+                <Form.Label className="subtitle">Nom d'utilisateur</Form.Label>
                 <Form.Control>
                     <Form.Input name="username" className="is-medium" type="text"
-                                placeholder="Nom d'utilisateur" onKeyDown={handleKeyDown}
+                                placeholder="Username" onKeyDown={handleKeyDown}
                                 onChange={updateField} value={newUserAccountData.username}/>
                 </Form.Control>
             </Form.Field>
 
             <Form.Field>
+                <Form.Label className="subtitle">Email</Form.Label>
                 <Form.Control>
                     <Form.Input name="email" className="is-medium" type="email"
                                 placeholder="Email" onKeyDown={handleKeyDown}
@@ -107,17 +105,19 @@ export const UserCreationForm = ({showErrorMessage, showSuccessMessage}) => {
             </Form.Field>
 
             <Form.Field>
+                <Form.Label className="subtitle">Mot de passe</Form.Label>
                 <Form.Control>
                     <Form.Input name="password" className="is-medium" type="password"
-                                placeholder="Mot de passe" onKeyDown={handleKeyDown} onChange={updateField}
+                                placeholder="Password" onKeyDown={handleKeyDown} onChange={updateField}
                                 value={newUserAccountData.password} autoComplete="current-password"/>
                 </Form.Control>
             </Form.Field>
 
             <Form.Field>
+                <Form.Label className="subtitle">Confirmation du mot de passe</Form.Label>
                 <Form.Control>
                     <Form.Input name="passwordConfirmation" className="is-medium" type="password"
-                                placeholder="Confirmation mot de passe" onKeyDown={handleKeyDown} onChange={updateField}
+                                placeholder="Password again" onKeyDown={handleKeyDown} onChange={updateField}
                                 value={newUserAccountData.passwordConfirmation} autoComplete="current-password"/>
                 </Form.Control>
             </Form.Field>
