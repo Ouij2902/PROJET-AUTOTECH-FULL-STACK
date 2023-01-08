@@ -4,7 +4,6 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const http = require("http");
 const mongoose = require("mongoose");
-const cors = require("cors");
 const session = require("express-session");
 const redis = require("redis");
 const connectRedis = require("connect-redis");
@@ -19,14 +18,6 @@ const crypto = require("crypto");
 // On crée l'application express
 const app = express();
 
-// Comme nous faisons du développement nous allons avoir des problèmes liés au CORS (https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)
-// Vu que l'on ne veut pas de soucis pour le développement, on va bypass cette mesure de sécurité !
-app.use(cors({
-    // En gros l'origin sera toujours celle qui faut pour ne plus avoir de soucis avec CORS
-    origin: (requestOrigin, callback) => callback(undefined, requestOrigin),
-    credentials: true
-}))
-
 // On configure le server
 app.use(logger('dev'));
 app.use(cookieParser());
@@ -36,8 +27,7 @@ app.use(express.urlencoded({extended: false}));
 // Crée un serveur HTTP
 const server = http.createServer(app);
 
-// On allume le serveur au port 3000
-server.listen(3000);
+server.listen(+(process.env.PORT || "3000"));
 
 // Quand le serveur est allumé on le log
 server.on('listening', function () {

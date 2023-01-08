@@ -69,18 +69,18 @@ export const Navbar = ({router}) => {
             <div className="container" id="element_container">
                 <BulmaNavbar.Brand>
                     <BulmaNavbar.Burger onClick={() => setIsActive(!isActive)}/>
+                    <Link href="/" passHref>
+                        <Image src={logo} width={160} height={160} quality={100}/>
+                    </Link>
                 </BulmaNavbar.Brand>
                 <BulmaNavbar.Menu>
                     <BulmaNavbar.Container>
-                        <Link href="/" passHref>
-                            <Image src={logo} width={160} height={160} quality={100}/>
-                        </Link>
+
                         <BulmaNavbar.Item renderAs="span">
                             <Link href="/" passHref>
                                 About Us
                             </Link>
                         </BulmaNavbar.Item>
-
 
                         <BulmaNavbar.Item renderAs="span">
                             <Link href="/contact" passHref>

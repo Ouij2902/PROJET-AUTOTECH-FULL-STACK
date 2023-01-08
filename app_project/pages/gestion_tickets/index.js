@@ -83,8 +83,10 @@ const TicketsPage = ({showErrorMessage}) => {
                 <Columns>
                     <Columns.Column className="right">
                         <Heading className="is-3">Liste de tous les tickets</Heading>
-                        <Button onClick={handleTicketAvancementSort} color="info">Trier par avancement</Button>&nbsp;
-                        <Button onClick={handleTicketPrioritySort} color="info">Trier par priotité</Button>
+                        <Button.Group>
+                            <Button onClick={handleTicketAvancementSort} color="info">Trier par avancement</Button>
+                            <Button onClick={handleTicketPrioritySort} color="info">Trier par priotité</Button>
+                        </Button.Group>
                         <hr/>
                         <TicketsList tickets={tickets}/>
                     </Columns.Column>

@@ -5,9 +5,11 @@ import moment from "moment";
 export const UserPreview = ({user}) => {
     return (
         <Link href={`/users/${user._id}`}>
-            <Card style={{cursor: "pointer", marginBottom: "0.5rem"}}>
+            <Card style={{background:"rgb(60,179,113)", cursor: "pointer", marginBottom: "0.5rem"}}>
                 <Card.Content>
-                    <Heading className="is-5">{user.username}, created {moment(user.createdAt).from()}</Heading>
+                    <Heading className="is-4">{user.username}</Heading>
+                    <hr/>
+                    Created {moment(user.createdAt).from()}
                 </Card.Content>
             </Card>
         </Link>
