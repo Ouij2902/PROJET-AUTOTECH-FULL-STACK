@@ -120,7 +120,7 @@ body, .mainContent {
 /* css pour la navbar */
 #menu {
   width: 100vw;
-  height:140px;
+  height:130px;
   background-color: rgba(0, 150, 136, 0.7);
 }
 div#element_container {

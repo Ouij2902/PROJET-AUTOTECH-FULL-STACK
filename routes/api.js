@@ -1,7 +1,7 @@
 const express = require("express");
 const {printSession} = require("../middlewares/index.js");
-const {createUser, deleteUser, readAllUsers, readUser, updateUser} = require("../controllers/users.js");
-const {getUserData, logInUser, signUpUser} = require("../controllers/accounts");
+const {getUserData, logInUser, signUpUser, readAllAccounts, updateAccount, deleteAccount} = require("../controllers/accounts");
+const {createTicket, readAllTickets, readMyTickets, updateTicket, deleteTicket, getTicketData} = require("../controllers/tickets");
 const {isUserAuthenticated, checkUserNotAlreadyAuthenticated, isSuperUser, isUserAsking} = require("../middlewares");
 
 // On crée le router de l'api
@@ -18,19 +18,6 @@ apiRouter.get('/ping', printSession, function (req, res) {
 });
 
 /**
- * Créer un utilisateur
- */
-apiRouter.post('/user', async (req, res) => {
-
-    // On fait un try catch pour intercepter une potentielle erreur
-    try {
-        res.json(await createUser(req.body));
-    } catch (e) {
-        res.status(500).send(e.message);
-    }
-});
-
-/**
  * Récupère un utilisateur par rapport à son id
  * @middleware isUserAuthenticated: Seul un utilisateur connecté peut accéder à cet endpoint
  */
@@ -38,7 +25,7 @@ apiRouter.get('/user/:userId', isUserAuthenticated, async (req, res) => {
 
     // On fait un try catch pour intercepter une potentielle erreur
     try {
-        res.json(await readUser(req.params.userId));
+        res.json(await getUserData(req.params.userId));
     } catch (e) {
         res.status(500).send(e.message);
     }
@@ -53,7 +40,7 @@ apiRouter.put('/user/:userId', isUserAuthenticated, isUserAsking, async (req, re
 
     // On fait un try catch pour intercepter une potentielle erreur
     try {
-        res.json(await updateUser(req.params.userId, req.body));
+        res.json(await updateAccount(req.params.userId, req.body));
     } catch (e) {
         res.status(500).send(e.message);
     }
@@ -62,13 +49,13 @@ apiRouter.put('/user/:userId', isUserAuthenticated, isUserAsking, async (req, re
 /**
  * Supprime un utilisateur par rapport à son id
  * @middleware isUserAuthenticated: Seul un utilisateur connecté peut accéder à cet endpoint
- * @middleware isSuperUser: Seul un super utilisateur a le droit d'accéder à cet endpoint
+ * @middleware isUserAsking: Seul l'utilisateur connecté OU un super utilisateur a le droit d'accéder à cet endpoint
  */
-apiRouter.delete('/user/:userId', isUserAuthenticated, isSuperUser, async (req, res) => {
+apiRouter.delete('/user/:userId', isUserAuthenticated, isUserAsking, async (req, res) => {
 
     // On fait un try catch pour intercepter une potentielle erreur
     try {
-        res.json(await deleteUser(req.params.userId));
+        res.json(await deleteAccount(req.params.userId));
     } catch (e) {
         res.status(500).send(e.message);
     }
@@ -77,12 +64,13 @@ apiRouter.delete('/user/:userId', isUserAuthenticated, isSuperUser, async (req, 
 /**
  * Récupère tous les utilisateurs
  * @middleware isUserAuthenticated: Seul un utilisateur connecté peut accéder à cet endpoint
+ * @middleware isSuperUser: seul un superuser peut accéder à cet endpoint
  */
-apiRouter.get('/users', isUserAuthenticated, async (req, res) => {
+apiRouter.get('/accounts', isUserAuthenticated, isSuperUser, async (req, res) => {
 
     // On fait un try catch pour intercepter une potentielle erreur
     try {
-        res.json(await readAllUsers());
+        res.json(await readAllAccounts());
     } catch (e) {
         res.status(500).send(e.message);
     }
@@ -101,7 +89,7 @@ apiRouter.get('/login', checkUserNotAlreadyAuthenticated, async (req, res) => {
         const result = await logInUser(b64auth);
 
         // On veut stocker des informations dans la session
-        req.session.userId = result.userId;
+        req.session.userId = result.accountId;
         req.session.email = result.email;
         req.session.isSuperUser = result.isSuperUser;
 
@@ -169,7 +157,68 @@ apiRouter.post('/signup', async (req, res) => {
 
     // On fait un try catch pour intercepter une potentielle erreur
     try {
-        res.json(await signUpUser(req.body.email, req.body.password, req.body.isSuperUser, req.body.user));
+        res.json(await signUpUser(req.body.username, req.body.email, req.body.password, req.body.isSuperUser));
+    } catch (e) {
+        res.status(500).send(e.message);
+    }
+});
+
+/**
+ * Permet de créer un ticket
+ */
+apiRouter.post('/newticket', isUserAuthenticated, async (req, res) => {
+
+    // On fait un try catch pour intercepter une potentielle erreur
+    try {
+        res.json(await createTicket(req.body.title, req.body.ticket_type, req.body.priority, req.body.description, req.session.userId));
+    } catch (e) {
+        res.status(500).send(e.message);
+    }
+});
+
+apiRouter.get('/tickets', isUserAuthenticated, isSuperUser, async (req, res) => {
+
+    // On fait un try catch pour intercepter une potentielle erreur
+    try {
+        res.json(await readAllTickets());
+    } catch (e) {
+        res.status(500).send(e.message);
+    }
+});
+
+apiRouter.get('/mytickets', isUserAuthenticated, async (req, res) => {
+
+    // On fait un try catch pour intercepter une potentielle erreur
+    try {
+        res.json(await readMyTickets(req.session.userId));
+    } catch (e) {
+        res.status(500).send(e.message);
+    }
+});
+
+apiRouter.get('/ticket/:ticketId', isUserAuthenticated, async (req, res) => {
+
+    // On fait un try catch pour intercepter une potentielle erreur
+    try {
+        res.json(await getTicketData(req.params.ticketId));
+    } catch (e) {
+        res.status(500).send(e.message);
+    }
+});
+
+apiRouter.put('/ticket/:ticketId', isUserAuthenticated, async (req, res) => {
+
+    try {
+        res.json(await updateTicket(req.params.ticketId, req.body));
+    } catch (e) {
+        res.status(500).send(e.message);
+    }
+});
+
+apiRouter.delete('/ticket/:ticketId', isUserAuthenticated, async (req, res) => {
+
+    try {
+        res.json(await deleteTicket(req.params.ticketId));
     } catch (e) {
         res.status(500).send(e.message);
     }

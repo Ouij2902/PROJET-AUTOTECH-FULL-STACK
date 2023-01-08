@@ -6,7 +6,7 @@ const IndexPage = () => {
     return (
         <PageWrapper>
             <Columns.Column className="is-8 is-offset-2 has-text-centered middle_page">
-                <Heading className="is-3">Hellooo !</Heading>
+                <Heading className="is-3">Bonjour !</Heading>
                 <hr/>
                 <p>Bienvenue sur le site du club de réparation automobile Autotech</p>
                 <br/>

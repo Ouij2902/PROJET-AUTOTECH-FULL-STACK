@@ -7,7 +7,7 @@ export const UserPreview = ({user}) => {
         <Link href={`/users/${user._id}`}>
             <Card style={{cursor: "pointer", marginBottom: "0.5rem"}}>
                 <Card.Content>
-                    <Heading className="is-4">{user.username}, created {moment(user.createdAt).from()}</Heading>
+                    <Heading className="is-5">{user.username}, created {moment(user.createdAt).from()}</Heading>
                 </Card.Content>
             </Card>
         </Link>

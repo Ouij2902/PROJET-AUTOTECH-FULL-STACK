@@ -4,6 +4,7 @@ import Link from "next/link";
 import {checkIfUserLogged} from "../utils/utils";
 import Image from 'next/image';
 import logo from "../public/logo.svg";
+import logout from "../public/logout_icon.png";
 
 /**
  * La navbar
@@ -72,27 +73,27 @@ export const Navbar = ({router}) => {
                 <BulmaNavbar.Menu>
                     <BulmaNavbar.Container>
                         <Link href="/" passHref>
-                            <Image src={logo} quality={100}/>
+                            <Image src={logo} width={160} height={160} quality={100}/>
                         </Link>
-                        <BulmaNavbar.Item renderAs="a">
+                        <BulmaNavbar.Item renderAs="span">
                             <Link href="/" passHref>
                                 About Us
                             </Link>
                         </BulmaNavbar.Item>
 
 
-                        <BulmaNavbar.Item renderAs="a">
+                        <BulmaNavbar.Item renderAs="span">
                             <Link href="/contact" passHref>
                                 Contact
                             </Link>
                         </BulmaNavbar.Item>
 
 
-                        {isUserLogged ?
+                        {isSuperUser ?
                             <>
-                                <BulmaNavbar.Item renderAs="a">
+                                <BulmaNavbar.Item renderAs="span">
                                     <Link href="/users" passHref>
-                                        Users
+                                        Gestion des comptes
                                     </Link>
                                 </BulmaNavbar.Item>
 
@@ -103,39 +104,32 @@ export const Navbar = ({router}) => {
 
                         {isSuperUser ?
                             <>
-                                <BulmaNavbar.Item renderAs="a" className="has-dropdown is-hoverable">
-                                    <BulmaNavbar.Link>
-                                        Gestion administrateur
-                                    </BulmaNavbar.Link>
-                                    <BulmaNavbar.Dropdown>
-                                        <BulmaNavbar.Item renderAs="span">
-                                            <Link href="/admin" passHref>
-                                                <p style={{color: "#7a7a7a", letterSpacing: ".1em", textTransform: "uppercase"}}>Admin page</p>
-                                            </Link>
-                                        </BulmaNavbar.Item>
-
-                                    </BulmaNavbar.Dropdown>
+                                <BulmaNavbar.Item renderAs="span">
+                                    <Link href="/gestion_tickets" passHref>
+                                        Gestion des tickets
+                                    </Link>
                                 </BulmaNavbar.Item>
-                            </> : null
+                            </> : isUserLogged ?
+                                    <BulmaNavbar.Item renderAs="span">
+                                        <Link href="/my_tickets" passHref>
+                                            Mes tickets
+                                        </Link>
+                                    </BulmaNavbar.Item>
+                            : null
                         }
 
                         {isUserLogged ?
                             <>
-                                <BulmaNavbar.Item renderAs="a" className="has-dropdown is-hoverable">
-                                    <BulmaNavbar.Link>
-                                        <BulmaNavbar.Item renderAs="span">
-                                            <Link href="/account" passHref>
-                                                Account
-                                            </Link>
-                                        </BulmaNavbar.Item>
-                                    </BulmaNavbar.Link>
-                                    <BulmaNavbar.Dropdown>
-                                        <BulmaNavbar.Item renderAs="span">
-                                            <Link href="/logout" passHref>
-                                                Log out
-                                            </Link>
-                                        </BulmaNavbar.Item>
-                                    </BulmaNavbar.Dropdown>
+                                <BulmaNavbar.Item renderAs="span">
+                                    <Link href="/account" passHref>
+                                        Profil
+                                    </Link>
+                                </BulmaNavbar.Item>
+
+                                <BulmaNavbar.Item renderAs="span">
+                                    <Link href="/logout" passHref>
+                                        <Image src={logout} width={20} height={20} quality={100}/>
+                                    </Link>
                                 </BulmaNavbar.Item>
                             </>
                             :
